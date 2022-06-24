@@ -1,0 +1,16 @@
+language: generic
+
+## We need super-user permissions to use docker
+sudo: required
+
+## Specifying that we need a copy of docker on our running container
+services: 
+  - docker
+
+## Commands we'll need before running the tests
+before_instsall:
+  - docker build -t robperch/docker-react -f Dockerfile.dev . 
+
+script:
+  - docker run -e CI=True robperch/docker-react npm run test
+
